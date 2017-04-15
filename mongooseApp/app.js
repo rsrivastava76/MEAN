@@ -3,6 +3,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var Book = require('./Book.model');
+var stud = require('./User.model');
 
 var port = 8080;
 var db = 'mongodb://rsrivastava76.local/example'
@@ -19,22 +20,19 @@ db             - passed to the [underlying driver's db instance](http://mongodb.
  promiseLibrary - sets the [underlying driver's promise library](http://mongodb.github.io/node-mongodb-native/2.1/api/MongoClient.html)
 
 For long running applications, it is often prudent to enable keepAlive with a number of milliseconds. Without it, after some period of time you may start to see "connection closed" errors for what seems like no reason. If so, after reading this, you may decide to enable keepAlive:
-
-
+*/
 var options = {
   db: { native_parser: true },
   server: { poolSize: 5 },
   replset: { rs_name: 'myReplicaSetName' },
-  user: 'myUserName',
-  pass: 'myPassword'
+  user: 'rs',
+  pass: 'rs'
 }
 //options.server.socketOptions = options.replset.socketOptions = { keepAlive: 120 };
 
-mongoose.connect(uri, options);
-*/
+mongoose.connect(db, options);
 
-
-mongoose.connect(db);
+//mongoose.connect(db);
 
 // all us to parse json
 app.use(bodyParser.json())
@@ -47,15 +45,29 @@ app.get('/', function(req, res) {
   res.send('happy to be here');
 });
 
-app.get('/books', function(req, res) {
-  console.log('getting all books');
-  Book.find({})
-    .exec(function(err, books) {
+app.get('/students', function(req, res) {
+  console.log('getting all students');
+  stud.find({})
+    .exec(function(err, docs) {
       if(err) {
         res.send('error occured')
       } else {
-        console.log(books);
-        res.json(books);
+        console.log(docs);
+        res.json(docs);
+      }
+    });
+});
+
+
+app.get('/books', function(req, res) {
+  console.log('getting all books');
+  Book.find({})
+    .exec(function(err, docs) {
+      if(err) {
+        res.send('error occured')
+      } else {
+        console.log(docs);
+        res.json(docs);
       }
     });
 });
