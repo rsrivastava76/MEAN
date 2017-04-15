@@ -1,9 +1,11 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
+var mongoose = require('mongoose').set('debug', true);
 var Book = require('./Book.model');
-var stud = require('./User.model');
+var User = require('./User.model');
+var stud = require('./Student.model');
+var Test = require('./Test.model');
 
 var port = 8080;
 var db = 'mongodb://rsrivastava76.local/example'
@@ -45,9 +47,35 @@ app.get('/', function(req, res) {
   res.send('happy to be here');
 });
 
-app.get('/students', function(req, res) {
+app.get('/Students', function(req, res) {
   console.log('getting all students');
   stud.find({})
+    .exec(function(err, docs) {
+      if(err) {
+        res.send('error occured')
+      } else {
+      //  console.log(docs);
+        res.json(docs);
+      }
+    });
+});
+
+app.get('/User', function(req, res) {
+  console.log('getting all students');
+  User.find({})
+    .exec(function(err, docs) {
+      if(err) {
+        res.send('error occured')
+      } else {
+        console.log(docs);
+        res.json(docs);
+      }
+    });
+});
+
+app.get('/test', function(req, res) {
+  console.log('getting all books');
+  Test.find({})
     .exec(function(err, docs) {
       if(err) {
         res.send('error occured')

@@ -16,28 +16,32 @@ db.books.insert({
     category: 'Health'
 })
 
-db.users.insert({
+db.students.insert({
+    _id : "S:001",
     name: 'Joe',
     undergrad: true,
     units: 9,
     classes: ['geography', 'math', 'journalism']
 })
 
-db.users.insert({
+db.students.insert({
+    _id : "S:002",
     name: 'Jane',
     undergrad: false,
     units: 12,
     classes: ['geography', 'science', 'journalism', 'history']
 })
 
-db.users.insert({
+db.students.insert({
+    _id : "S:003",
     name: 'Kevin',
     undergrad: true,
     units: 3,
     classes: ['geography']
 })
 
-db.users.insert({
+db.students.insert({
+    _id : "S:004",
     name: 'Rachel',
     undergrad: false,
     units: 6,
