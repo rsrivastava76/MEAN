@@ -6,10 +6,12 @@ var Book = require('./Book.model');
 var User = require('./User.model');
 var stud = require('./Student.model');
 var Test = require('./Test.model');
+var Item = require('./Item.model');
+var Meta = require('./Meta.model');
 
 var port = 8080;
-var db = 'mongodb://rsrivastava76.local/example'
-//var db = 'mongodb://test.mongodb.firstrain.com/exapleDB'
+//var db = 'mongodb://rsrivastava76.local/example'
+var db = 'mongodb://test.mongodb.firstrain.com/extended_doc'
 
 /*
 db             - passed to the [underlying driver's db instance](http://mongodb.github.io/node-mongodb-native/2.1/api/Db.html)
@@ -27,9 +29,17 @@ var options = {
   db: { native_parser: true },
   server: { poolSize: 5 },
   replset: { rs_name: 'myReplicaSetName' },
+  user: 'mongouser',
+  pass: 'pass@123'
+}
+/*
+var options = {
+  db: { native_parser: true },
+  server: { poolSize: 5 },
+  replset: { rs_name: 'myReplicaSetName' },
   user: 'rs',
   pass: 'rs'
-}
+}*/
 //options.server.socketOptions = options.replset.socketOptions = { keepAlive: 120 };
 
 mongoose.connect(db, options);
@@ -46,6 +56,66 @@ app.use(bodyParser.urlencoded({
 app.get('/', function(req, res) {
   res.send('happy to be here');
 });
+
+app.get('/meta', function(req, res) {
+  console.log('getting all Item');
+  Meta.find({})
+    .exec(function(err, docs) {
+      if(err) {
+        res.send('error occured')
+      } else {
+        console.log(docs);
+        res.json(docs);
+      }
+    });
+});
+
+app.get('/meta/:id', function(req, res) {
+  console.log('getting all Item ');
+  Meta.findOne({
+    _id: req.params.id
+    })
+    .exec(function(err, docs) {
+      if(err) {
+        res.send('error occured ==' + err)
+      } else {
+        console.log(docs);
+        res.json(docs);
+      }
+    });
+});
+
+
+app.get('/item', function(req, res) {
+  console.log('getting all Item');
+  Item.find({})
+    .exec(function(err, docs) {
+      if(err) {
+        res.send('error occured')
+      } else {
+        console.log(docs);
+        res.json(docs);
+      }
+    });
+});
+
+app.get('/items/:id', function(req, res) {
+  console.log('getting all Item ');
+  Item.findOne({
+    _id: req.params.id
+    })
+    .exec(function(err, docs) {
+      if(err) {
+        res.send('error occured' + err)
+      } else {
+        console.log(docs);
+        res.json(docs);
+      }
+    });
+});
+
+
+
 
 app.get('/Students', function(req, res) {
   console.log('getting all students');

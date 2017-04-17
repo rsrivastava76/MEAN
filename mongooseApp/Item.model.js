@@ -6,4 +6,4 @@ var BookSchema = new Schema({
 });
 
 //with force collection Name
-module.exports = mongoose.model('Test', BookSchema, 'test');
+module.exports = mongoose.model('Item', BookSchema);
