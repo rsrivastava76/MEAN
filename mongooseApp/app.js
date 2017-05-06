@@ -9,7 +9,7 @@ var Test = require('./Test.model');
 var Item = require('./Item.model');
 var Meta = require('./Meta.model');
 
-var port = 8080;
+var port = 3001;
 //var db = 'mongodb://rsrivastava76.local/example'
 var db = 'mongodb://test.mongodb.firstrain.com/extended_doc'
 
