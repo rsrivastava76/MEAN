@@ -39,20 +39,20 @@ app.get('/', function(req, res) {
 });
 
 app.get('/items', function(req, res) {
-  console.log('getting all Item');
+  //console.log('getting all Item');
   Item.find({})
     .exec(function(err, docs) {
       if(err) {
         res.send('error occured')
       } else {
-        console.log(docs);
+      //  console.log(docs);
         res.json(docs);
       }
     });
 });
 
 app.get('/items/:id', function(req, res) {
-  console.log('getting all Item ');
+  //console.log('getting all Item ');
   Item.findOne({
     _id: req.params.id
     })
@@ -60,7 +60,7 @@ app.get('/items/:id', function(req, res) {
       if(err) {
         res.send('error occured' + err)
       } else {
-        console.log(docs);
+        //console.log(docs);
         res.json(docs);
       }
     });
@@ -78,7 +78,7 @@ app.post('/item', function(req, res) {
     if(err) {
       res.send('error saving item');
     } else {
-      console.log(item);
+    //  console.log(item);
       res.send(item);
     }
   });
@@ -89,7 +89,7 @@ app.post('/itemJSON', function(req, res) {
     if(err) {
       res.send('error saving Item');
     } else {
-      console.log(item);
+    //  console.log(item);
       res.send(item);
     }
   });
@@ -102,23 +102,20 @@ app.put('/item/:id', function(req, res) {
     { $set: { taskName: req.body.taskName, completed : req.body.completed }
   }, {upsert: true}, function(err, newItem) {
     if (err) {
-      res.send('error updating ');
+      res.send('error updating == ');
     } else {
-      console.log(newItem);
+      //console.log(newItem);
       res.send(newItem);
     }
   });
 });
 
 app.delete('/item/:id', function(req, res) {
-  Item.remove({
-    _id: req.params.id
-  }, function(err, item) {
+  Item.remove({"_id": req.params.id }, function(err) {
     if(err) {
       res.send('error removing')
     } else {
-      console.log(item);
-      res.status(204);
+      res.send("Item deleted sucessfully");
     }
   });
 });
